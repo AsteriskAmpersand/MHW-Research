@@ -1,0 +1,72 @@
+//------------------------------------------------
+//--- 010 Editor v9.0 Script File
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+//   History: 
+//------------------------------------------------
+
+local int i,j;
+
+int filenum = GetFileNum();
+
+FileNew("Hex");
+if( FileSave( "E:\\MHW Shader Research\\MHW-Research\\fetch_shader_classes\\shader_strings.txt" ) < 0 )
+{
+    MessageBox( idOk, GetScriptName(), "An error occured writing file '%s'.", filename );
+    return -1;
+}
+int newfile = GetFileNum();
+local string input;
+FileSelect( filenum );
+for (i=0;i<head.unknStruct1Count;i++){
+    FileSelect( filenum );
+    SPrintf(input,"%s\n",unknStruct1Datas.unknStruct1Data[i].text);
+    FileSelect( newfile );
+    FPrintf( newfile, input );
+    FileSelect( filenum );
+    //Printf("%d",unknStruct1Datas.unknStruct1Data[i].countSubElements);
+    for (j=0;j<unknStruct1Datas.unknStruct1Data[i].countSubElements;j++){
+        FileSelect( filenum );
+        SPrintf(input,"%s\n",unknStruct1Datas.unknStruct1Data[i].sub[j].text);
+        FileSelect( newfile );
+        //FPrintf( newfile, input );
+        FileSelect( filenum );
+    };
+};
+
+for (i=0;i<head.unknStruct2Count;i++){
+    FileSelect( filenum );
+    for (j=0;j<unknStruct2s.unknStruct2[i].count;j++){
+        FileSelect( filenum );
+        SPrintf(input,"%s\n",unknStruct2s.unknStruct2[i].props[j].text);
+        FileSelect( newfile );
+        FPrintf( newfile, input );
+        FileSelect( filenum );
+    };
+    FileSelect( filenum );
+};
+
+for (i=0;i<head.materialCount;i++){
+    FileSelect( filenum );
+    SPrintf(input,"%s\n",materials.material[i].nameStr);
+    FileSelect( newfile );
+    FPrintf( newfile, input );
+    FileSelect( filenum );
+};
+
+for (i=0;i<head.shaderCount-1;i++){
+    FileSelect( filenum );
+    Printf("%s\n",shaderDatas.shaderData[i].text);
+    SPrintf(input,"%s\n",shaderDatas.shaderData[i].text);
+    FileSelect( newfile );
+    FPrintf( newfile, input );
+    FileSelect( filenum );
+};
+
+FileSelect( newfile );
+FileClose();
+FileSelect( filenum );

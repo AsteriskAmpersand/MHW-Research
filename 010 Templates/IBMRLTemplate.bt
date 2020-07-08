@@ -110,8 +110,6 @@ string ReadMaterial(Material& v){
 
 
 
-#include "mhwib_structures_generated.bt"
-
 struct MaterialA(int count){
     Material material[count]<read=ReadMaterial>;
 };

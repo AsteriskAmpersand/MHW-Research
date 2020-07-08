@@ -3,7 +3,11 @@ import os
 import re
 
 sg = open("mhwib_structures_generated.bt","w")
-print = sg.write
+def writeSG(*args,**kwargs):
+    sg.write(*args,**kwargs)
+    sg.write("\n")
+    
+print = writeSG
 
 print("#define row_major\n")
 print("""typedef struct float4{
